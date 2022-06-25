@@ -1,0 +1,17 @@
+.Filters {
+
+  .Search_Box {
+    display: flex;
+    align-items: center;
+
+    .Search_Input {
+      flex-basis: 100%;
+      min-width: 150px;
+    }
+
+    .Btn {
+      flex-basis: 30%;
+      padding: 6.5px 15px;
+    }
+  }
+}
