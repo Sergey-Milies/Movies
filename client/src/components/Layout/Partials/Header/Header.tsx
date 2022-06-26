@@ -1,9 +1,10 @@
 import {FC} from "react";
 import {AppBar, Box, Container, Toolbar, Typography} from "@mui/material";
+import classes from './Header.module.scss';
 
 const Header:FC = () => {
     return (
-        <AppBar position="static">
+        <AppBar position="static" className={classes.Header}>
             <Container maxWidth="lg">
                 <Box component='div'>
                     <Toolbar disableGutters>
