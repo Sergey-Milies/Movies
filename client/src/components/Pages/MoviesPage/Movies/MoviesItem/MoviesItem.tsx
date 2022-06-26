@@ -23,17 +23,17 @@ const MoviesItem: FC<IMoviesItemType> = ({ movie }) => {
                     <Typography gutterBottom variant="h5" component="div">
                         {movie.title.slice(0, 25)}...
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {movie.overview.slice(0, 200) }...
+                    <Typography variant="body2" color="text.secondary" className={classes.Text_Օverview}>
+                        {movie.overview.slice(0, 180) }...
                     </Typography>
                 </CardContent>
                 <CardContent>
-                    <Typography>Release Date: { movie.release_date }</Typography>
-                    <Typography>Popularity: { movie.popularity }</Typography>
+                    <Typography variant="body2" color="text.secondary">Release Date: { movie.release_date }</Typography>
+                    <Typography variant="body2" color="text.secondary">Popularity: { movie.popularity.toFixed(0) }</Typography>
+                    <Typography variant="body2" color="text.secondary">Language: { movie.original_language }</Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    <Button size="small">View</Button>
                 </CardActions>
             </Card>
         </Grid>
