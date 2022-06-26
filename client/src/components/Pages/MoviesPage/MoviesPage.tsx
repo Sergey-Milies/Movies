@@ -6,7 +6,6 @@ import {useAppDispatch, useAppSelector} from "../../../app/Redux/hooks";
 import {getAllMovies} from "../../../app/Redux/moviesSlice/moviesThunks";
 import {getMovies} from "../../../app/Redux/moviesSlice/moviesSlice";
 import {IMovies} from "../../../app/Types/Movies";
-import {log} from "util";
 
 const MoviesPage:FC = () => {
     const dispatch = useAppDispatch();
@@ -22,11 +21,12 @@ const MoviesPage:FC = () => {
 
     useEffect(() => {
         setMoviesArr(movies);
+        filterHandler();
     }, [movies]);
 
     useEffect(() => {
         filterHandler();
-    }, [date, popularity]);
+    }, [date, popularity, language]);
 
     const filterHandler = () => {
         let filtered_movies = [...movies];
@@ -46,6 +46,13 @@ const MoviesPage:FC = () => {
                 }
             });
         }
+        if(language) {
+            filtered_movies = filtered_movies.filter(movie => {
+                if(movie.original_language === language) {
+                    return movie;
+                }
+            });
+        }
         setMoviesArr(filtered_movies);
     }
 
@@ -56,6 +63,8 @@ const MoviesPage:FC = () => {
                 onChangeDate={(e: SelectChangeEvent<HTMLSelectElement>) => setDate(e.target.value)}
                 popularity={popularity}
                 onChangePopularity={(e: SelectChangeEvent<HTMLSelectElement>) => setPopularity(e.target.value)}
+                language={language}
+                onChangeLanguage={(e: SelectChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value)}
             />
             <Movies movies={moviesArr} />
         </Box>
