@@ -9,7 +9,16 @@ import {getAllMovies} from "../../../../app/Redux/moviesSlice/moviesThunks";
 import UISelect from "../../../UI/UISelect/UISelect";
 import {IFilters} from "./FiltersTypes";
 
-const Filters:FC<IFilters> = ({ date, onChangeDate, popularity, onChangePopularity, language, onChangeLanguage }) => {
+const Filters:FC<IFilters> = ({
+        date,
+        onChangeDate,
+        popularity,
+        onChangePopularity,
+        language,
+        onChangeLanguage,
+        vote_count,
+        onChangeVoteCount
+    }) => {
     const [title, setTitle] = useState<string>('');
     const dispatch = useAppDispatch();
 
@@ -72,6 +81,20 @@ const Filters:FC<IFilters> = ({ date, onChangeDate, popularity, onChangePopulari
                                 {value: 'en', name: 'English'},
                                 {value: 'ru', name: 'Russian'},
                                 {value: 'es', name: 'Español'}
+                            ]}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <UISelect
+                            label='Vote Count'
+                            value={vote_count}
+                            onChangeSelect={onChangeVoteCount}
+                            options={[
+                                {value: '', name: 'Select Vote Count'},
+                                {value: '0-500', name: '0-300'},
+                                {value: '501-1000', name: '501-1000'},
+                                {value: '1001-3000', name: '1001-3000'},
+                                {value: '3001-5000', name: '1001-3000'}
                             ]}
                         />
                     </Grid>

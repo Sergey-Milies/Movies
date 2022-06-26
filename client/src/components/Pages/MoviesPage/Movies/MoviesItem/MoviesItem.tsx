@@ -31,6 +31,7 @@ const MoviesItem: FC<IMoviesItemType> = ({ movie }) => {
                     <Typography variant="body2" color="text.secondary">Release Date: { movie.release_date }</Typography>
                     <Typography variant="body2" color="text.secondary">Popularity: { movie.popularity.toFixed(0) }</Typography>
                     <Typography variant="body2" color="text.secondary">Language: { movie.original_language }</Typography>
+                    <Typography variant="body2" color="text.secondary">Vote Count: { movie.vote_count }</Typography>
                 </CardContent>
                 <CardActions>
                     <Button size="small">View</Button>

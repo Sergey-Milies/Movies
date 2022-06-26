@@ -14,6 +14,7 @@ const MoviesPage:FC = () => {
     const [date, setDate] = useState<any>('');
     const [popularity, setPopularity] = useState<any>('');
     const [language, setLanguage] = useState<any>('');
+    const [vote_count, setVoteCount] = useState<any>('');
 
     useEffect(() => {
         dispatch(getAllMovies());
@@ -26,7 +27,7 @@ const MoviesPage:FC = () => {
 
     useEffect(() => {
         filterHandler();
-    }, [date, popularity, language]);
+    }, [date, popularity, language, vote_count]);
 
     const filterHandler = () => {
         let filtered_movies = [...movies];
@@ -53,6 +54,14 @@ const MoviesPage:FC = () => {
                 }
             });
         }
+        if(vote_count) {
+            filtered_movies = filtered_movies.filter(movie => {
+                const movie_vote_count = vote_count.split('-');
+                if(movie.vote_count >= movie_vote_count[0] && movie.vote_count <= movie_vote_count[1]) {
+                    return movie;
+                }
+            });
+        }
         setMoviesArr(filtered_movies);
     }
 
@@ -65,6 +74,8 @@ const MoviesPage:FC = () => {
                 onChangePopularity={(e: SelectChangeEvent<HTMLSelectElement>) => setPopularity(e.target.value)}
                 language={language}
                 onChangeLanguage={(e: SelectChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value)}
+                vote_count={vote_count}
+                onChangeVoteCount={(e: SelectChangeEvent<HTMLSelectElement>) => setVoteCount(e.target.value)}
             />
             <Movies movies={moviesArr} />
         </Box>
