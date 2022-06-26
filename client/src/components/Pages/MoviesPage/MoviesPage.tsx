@@ -1,21 +1,63 @@
-import {FC, useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 import Filters from "./Filters/Filters";
 import Movies from "./Movies/Movies";
-import {Box} from "@mui/material";
-import {useAppDispatch} from "../../../app/Redux/hooks";
+import {Box, SelectChangeEvent} from "@mui/material";
+import {useAppDispatch, useAppSelector} from "../../../app/Redux/hooks";
 import {getAllMovies} from "../../../app/Redux/moviesSlice/moviesThunks";
+import {getMovies} from "../../../app/Redux/moviesSlice/moviesSlice";
+import {IMovies} from "../../../app/Types/Movies";
+import {log} from "util";
 
 const MoviesPage:FC = () => {
     const dispatch = useAppDispatch();
+    const movies = useAppSelector(getMovies);
+    const [moviesArr, setMoviesArr] = useState<IMovies[]>([]);
+    const [date, setDate] = useState<any>('');
+    const [popularity, setPopularity] = useState<any>('');
+    const [language, setLanguage] = useState<any>('');
 
     useEffect(() => {
         dispatch(getAllMovies());
     }, []);
 
+    useEffect(() => {
+        setMoviesArr(movies);
+    }, [movies]);
+
+    useEffect(() => {
+        filterHandler();
+    }, [date, popularity]);
+
+    const filterHandler = () => {
+        let filtered_movies = [...movies];
+        if(date) {
+            filtered_movies = filtered_movies.filter(movie => {
+                const movie_date = movie.release_date.split('-');
+                if(date == movie_date[0]) {
+                    return movie;
+                }
+            });
+        }
+        if(popularity) {
+            filtered_movies = filtered_movies.filter(movie => {
+                const movie_popularity = popularity.split('-');
+                if(movie.popularity >= movie_popularity[0] && movie.popularity <= movie_popularity[1]) {
+                    return movie;
+                }
+            });
+        }
+        setMoviesArr(filtered_movies);
+    }
+
     return (
         <Box component='div'>
-            <Filters />
-            <Movies />
+            <Filters
+                date={date}
+                onChangeDate={(e: SelectChangeEvent<HTMLSelectElement>) => setDate(e.target.value)}
+                popularity={popularity}
+                onChangePopularity={(e: SelectChangeEvent<HTMLSelectElement>) => setPopularity(e.target.value)}
+            />
+            <Movies movies={moviesArr} />
         </Box>
     );
 }

@@ -27,6 +27,10 @@ const MoviesItem: FC<IMoviesItemType> = ({ movie }) => {
                         {movie.overview.slice(0, 200) }...
                     </Typography>
                 </CardContent>
+                <CardContent>
+                    <Typography>Release Date: { movie.release_date }</Typography>
+                    <Typography>Popularity: { movie.popularity }</Typography>
+                </CardContent>
                 <CardActions>
                     <Button size="small">Share</Button>
                     <Button size="small">Learn More</Button>
