@@ -1,0 +1,17 @@
+.MoviesItem {
+  min-height: 375px;
+
+  .Text_Օverview {
+    min-height: 80px;
+  }
+
+  .Link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .Inline_Box {
+    display: flex;
+    justify-content: space-between;
+  }
+}

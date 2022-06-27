@@ -15,6 +15,18 @@ class MainController extends Controller {
             next(e);
         }
     }
+
+    async getMovie (req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.query;
+
+            const movie = await MoviesService.getMovie(id);
+
+            res.json(movie);
+        } catch(e) {
+            next(e);
+        }
+    }
 }
 
 export default new MainController();
