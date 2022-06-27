@@ -10,13 +10,8 @@ const Loader: FC = () => {
     const isLoad = useAppSelector(isLoading);
 
     useEffect(() => {
-        if(!isLoad) {
-            setTimeout(() => {
-                setShow(false);
-            }, 500);
-        } else {
-            setShow(true);
-        }
+        if(!isLoad) setTimeout(() => setShow(false), 500);
+        else setShow(true);
     }, [isLoad]);
 
     return show ? (
